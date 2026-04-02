@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,25 +9,26 @@
     <!--tailwind and daisy ui   -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    </head>
+</head>
+
 <body>
     <main class="container mx-auto ">
         <h2 class="text-[#15803D] font-bold text-4xl">Choose Your Trees</h2>
-    
+
         <div class="grid grid-cols-12 gap-8">
-  
-              <!-- categories -->
+
+            <!-- categories -->
             <div class="bg-white card card-body shadow-2xl col-span-3">
                 <h2 class="font-bold text-2xl"> Categories</h2>
                 <!-- button -->
-                <div class="space-y-3">
-                    <button class="btn btn-success w-full" id="allTreeBtn">All Trees</button>
+                <div class="space-y-3 sticky top-8">
+                    <button class="btn primary-btn w-full" id="allTreeBtn">All Trees</button>
 
                     <!-- Categories Container -->
-                     <div id="categoriesContainer" class="space-y-3">
-                    <!-- categories will be loaded here -->
+                    <div id="categoriesContainer" class="space-y-3">
+                        <!-- categories will be loaded here -->
 
-                     </div>
+                    </div>
 
 
                 </div>
@@ -35,26 +37,65 @@
 
             <!-- Trees -->
             <div class="bg-white card card-body shadow-2xl col-span-6">
+                <!-- trees will rendered -->
                 <div id="treeContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-                                        
+                    <!-- dynamaticially added here -->
 
                 </div>
-                Trees
-               
+                <!-- loading spinener -->
+                <div id="loading-spinner" class="h-[60vh] hidden justify-center items-center">
+                    <span class="loading loading-spinner text-primary"></span>
+                    <span class="loading loading-spinner text-secondary"></span>
+                    <span class="loading loading-spinner text-accent"></span>
+                    <span class="loading loading-spinner text-neutral"></span>
+                    <span class="loading loading-spinner text-info"></span>
+                    <span class="loading loading-spinner text-success"></span>
+                    <span class="loading loading-spinner text-warning"></span>
+                    <span class="loading loading-spinner text-error"></span>
+                </div>
+
+
 
             </div>
 
             <!-- Cart section -->
-            <div class="bg-green-400 col-span-3"> 
-                Cart
+            <div class="bg-green-400 col-span-3">
+                <h2 class="font-bold text-3xl mb-2">Cart </h2>
+                <div class="space-y-4">
+                    <div class="card card-body shadow-2xl">
+                        <div class=" flex justify-between items-center">
+                            <h2>Name</h2>
+                            <p>2333 * 10</p>
+                        </div>
+                        <button class="btn btn-ghost">X</button>
+                        <p>$500</p>
+                    </div>
+                </div>
 
             </div>
 
         </div>
+
+        <!-- product details modal -->
+        <!-- Open the modal using ID.showModal() method -->
+        <button class="btn" onclick="tree-details-modal.showModal()">open modal</button>
+        <dialog id="my_modal_1" class="modal">
+            <div class="modal-box">
+
+                <h3 class="text-lg font-bold">Hello!</h3>
+                <p class="py-4">Press ESC key or click the button below to close</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </main>
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
-    
+
 </body>
+
 </html>

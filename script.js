@@ -8,6 +8,18 @@
 // main code start
 const categoriesContainer = document.getElementById('categoriesContainer')
 const treeContainer = document.getElementById("treeContainer")
+const loadingSpiner =document.getElementById("loading-spinner")
+
+// machine function start 
+function showloading(){
+    loadingSpiner.classList.remove("hidden")
+    loadingSpiner.classList.add("flex")
+    treeContainer.innerHTML =''
+}
+function hideLoading(){
+    loadingSpiner.classList.add("hidden")
+}
+// machine function end 
 
 // async await
 async function loadCategories(){
@@ -20,14 +32,59 @@ data.categories.forEach(category => {
     const btn = document.createElement("button")
     btn.className = "btn btn-outline w-full"
     btn.textContent= category.category_name
+    btn.onclick= () => selectCategory(category.id, btn)
     categoriesContainer.appendChild(btn)
 })
+}
+
+async function selectCategory(categoryId,btn){
+    console.log(categoryId, btn)
+    showloading()
+   
+    const allButtons = document.querySelectorAll("#categoriesContainer button , #allTreeBtn")
+    // console.log(allButtons);
+
+    allButtons.forEach((btn)=> {
+        btn.classList.remove("primary-btn")
+        btn.classList.add("btn-outline")
+    })
+    btn.classList.add("primary-btn")
+    btn.classList.remove("btn-outline")
+
+    const res = await fetch(`https://openapi.programming-hero.com/api/category/${categoryId}`)
+    const data = await res.json()
+    // console.log(data)
+    displayTrees(data.plants)
+    hideLoading()
 
 }
 
+// update button active 
+allTreeBtn.addEventListener("click", ()=>{
+    // update button active 
+     const allButtons = document.querySelectorAll("#categoriesContainer button , #allTreeBtn")
+    // console.log(allButtons);
+
+    allButtons.forEach((btn)=> {
+        btn.classList.remove("primary-btn")
+        btn.classList.add("btn-outline")
+    })
+    allTreeBtn.classList.add("primary-btn")
+    allTreeBtn.classList.remove("btn-outline")
+    loadTree()
+
+
+})
+
 async function loadTree(){
+    // loadingSpiner.classList.remove("hidden")
+    // loadingSpiner.classList.add("flex")
+    showloading()
     const res = await fetch("https://openapi.programming-hero.com/api/plants")
     const data = await res.json()
+    // loadingSpiner.classList.add("hidden")
+    hideLoading()
+    
     // console.log(data)
     // data.plants.forEach()
     displayTrees(data.plants)
@@ -37,7 +94,7 @@ async function loadTree(){
 function displayTrees(trees){
     console.log(trees)
     trees.forEach(tree=>{
-        console.log(tree)
+        // console.log(tree)
         const card = document.createElement("div")
         card.className ="card bg-base-100 shadow-sm"
         card.innerHTML = `
